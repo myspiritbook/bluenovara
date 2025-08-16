@@ -2236,8 +2236,7 @@ const qs = new URLSearchParams({
   action: 'play'
 }).toString();
 
-fetch(API_URL + '?' + qs, { mode: 'no-cors' })
-  .catch(err => console.log('log failed', err));
+new Image().src = API_URL + "?" + qs + "&_=" + Date.now();
 }
 
 function togglePlay() {
