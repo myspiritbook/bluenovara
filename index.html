@@ -2228,18 +2228,16 @@
             song.plays++;
 safeSetItem('mp3_tracker_songs', JSON.stringify(songs));
 
-// Log play to Google Sheet
-fetch(API_URL, {
-  method: 'POST',
-  mode: 'no-cors',  // <-- add this
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  body: new URLSearchParams({
-    name: currentUser ? currentUser.name : 'Guest',
-    code: currentUser ? currentUser.code : '0000',
-    track: song.title,
-    action: 'play'
-  })
-}).catch(err => console.log('log failed', err));
+// Log play to Google Sheet via GET
+const qs = new URLSearchParams({
+  name: currentUser ? currentUser.name : 'Guest',
+  code: currentUser ? currentUser.code : '0000',
+  track: song.title,
+  action: 'play'
+}).toString();
+
+fetch(API_URL + '?' + qs, { mode: 'no-cors' })
+  .catch(err => console.log('log failed', err));
 }
 
 function togglePlay() {
