@@ -2436,9 +2436,24 @@ function seedUserFromURL() {
     console.warn('Seeding failed:', e);
   }
 }
+        // Optional: clear local data via ?reset=1
+function resetFromURL() {
+  try {
+    const p = new URLSearchParams(location.search);
+    if (p.get('reset') === '1') {
+      localStorage.removeItem('mp3_tracker_songs');
+      localStorage.removeItem('mp3_tracker_users');
+      localStorage.removeItem('mp3_tracker_user');
+      // full clear as a safety net
+      localStorage.clear();
+      sessionStorage.clear?.();
+    }
+  } catch (e) {}
+}
         document.addEventListener('DOMContentLoaded', function() {
-            initializeData();
+            resetFromURL(); 
             seedUserFromURL();
+            initializeData();
             
             // Add mobile-specific event listeners
             document.addEventListener('touchstart', function() {}, { passive: true });
