@@ -2226,25 +2226,22 @@
             });
             
             song.plays++;
-            safeSetItem('mp3_tracker_songs', JSON.stringify(songs));
-            // log play to Google Sheet
-try {
-  fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      name: currentUser ? currentUser.name : 'Guest',
-      code: currentUser ? currentUser.code : '0000',
-      track: song.title,
-      action: 'play'
-    })
-  });
-} catch (e) {
-  console.log('log failed', e);
-}
-        }
+safeSetItem('mp3_tracker_songs', JSON.stringify(songs));
 
-        function togglePlay() {
+// Log play to Google Sheet
+fetch(API_URL, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    name: currentUser ? currentUser.name : 'Guest',
+    code: currentUser ? currentUser.code : '0000',
+    track: song.title,
+    action: 'play'
+  })
+}).catch(err => console.log('log failed', err));
+}
+
+function togglePlay() {
             const audioPlayer = document.getElementById('audioPlayer');
             const playBtn = document.getElementById('playBtn');
             
