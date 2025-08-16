@@ -1276,6 +1276,7 @@
     </div>
 
     <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbyrhcx6vmVhsm9U097dxUwzyacFSao-nnhUEsKhpF-hp25o52vn7KIkl9lqwNIXKFYjDXQ/exec";
         let currentLanguage = 'en';
         let currentUser = null;
         let isAdmin = false;
@@ -2226,6 +2227,21 @@
             
             song.plays++;
             safeSetItem('mp3_tracker_songs', JSON.stringify(songs));
+            // log play to Google Sheet
+try {
+  fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: currentUser ? currentUser.name : 'Guest',
+      code: currentUser ? currentUser.code : '0000',
+      track: song.title,
+      action: 'play'
+    })
+  });
+} catch (e) {
+  console.log('log failed', e);
+}
         }
 
         function togglePlay() {
