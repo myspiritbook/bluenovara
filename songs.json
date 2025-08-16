@@ -1,0 +1,24 @@
+[
+  {
+    "id": "1",
+    "title": "J'engloutis la vie",
+    "artist": "Blue Novara",
+    "url": "https://raw.githubusercontent.com/myspiritbook/bluenovara/main/J'engloutis%20la%20vie%20-%20(Remastered%20x2).mp3",
+    "coverUrl": "https://raw.githubusercontent.com/myspiritbook/bluenovara/main/J'engloutis%20la%20vie%20-%20Blue%20Novara.png",
+    "isOnline": true,
+    "plays": 0,
+    "ratings": [],
+    "comments": []
+  },
+  {
+    "id": "2",
+    "title": "What Is Self-Love",
+    "artist": "Blue Novara",
+    "url": "https://raw.githubusercontent.com/myspiritbook/bluenovara/main/What%20Is%20Self-Love.mp3",
+    "coverUrl": "https://raw.githubusercontent.com/myspiritbook/bluenovara/main/What%20Is%20Self-Love%20-%20Blue%20Novara.png",
+    "isOnline": true,
+    "plays": 0,
+    "ratings": [],
+    "comments": []
+  }
+]
