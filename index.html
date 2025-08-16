@@ -1772,7 +1772,20 @@
             document.querySelectorAll('.admin-playlist-item').forEach((item, i) => {
                 item.classList.toggle('active', i === index);
             });
-            
+            // log admin play to Make
+try {
+  const adminName = currentUser && currentUser.name ? currentUser.name : 'Admin';
+  const adminCode = currentUser && currentUser.code ? currentUser.code : 'admin';
+  const qs = new URLSearchParams({
+    name: adminName,
+    code: adminCode,
+    track: song.title,
+    action: 'admin_play'
+  }).toString();
+  new Image().src = API_URL + "?" + qs + "&_=" + Date.now();
+} catch (e) {
+  console.log('admin log failed', e);
+}
             adminTogglePlay();
         }
 
@@ -2235,7 +2248,6 @@ const qs = new URLSearchParams({
   track: song.title,
   action: 'play'
 }).toString();
-
 new Image().src = API_URL + "?" + qs + "&_=" + Date.now();
 }
 
