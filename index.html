@@ -2390,8 +2390,32 @@
         }
 
         // Initialize on load
+        // Seeds a user on first visit via link parameters
+function seedUserFromURL() {
+  try {
+    const params = new URLSearchParams(location.search);
+    const code = params.get('ucode');   // e.g., ?ucode=4959
+    const name = params.get('uname');   // e.g., &uname=Eric%20Galliano
+
+    // require a 4 to 6 digit code
+    if (!code || !/^\d{4,6}$/.test(code)) return;
+
+    // read current list from storage
+    const stored = safeGetItem('mp3_tracker_users');
+    let list = stored ? JSON.parse(stored) : [];
+
+    // add if missing
+    if (!list.find(u => u.code === code)) {
+      list.push({ id: Date.now().toString(), name: name || 'Guest', code });
+      safeSetItem('mp3_tracker_users', JSON.stringify(list));
+    }
+  } catch (e) {
+    console.warn('Seeding failed:', e);
+  }
+}
         document.addEventListener('DOMContentLoaded', function() {
             initializeData();
+            seedUserFromURL();
             
             // Add mobile-specific event listeners
             document.addEventListener('touchstart', function() {}, { passive: true });
